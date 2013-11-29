@@ -1,0 +1,75 @@
+<script>
+var input=["@TheRealJYZ you and chief jeef?", "@connorlohman you go sovogga", "@TheRealJYZ Ursa", "@TheRealJYZ follow me jason", "Used the same urinal 4 times in 24 hours #consistency", "For 3.8 billion years, older than the Earth's mountains, every one of your forebears on both sides has been attractive enough to find a mate", "@somonypou run sombomb run", "@TheRealJYZ 325 for 22. And let the outside set just a little bit before consumption", "@TheRealJYZ your body", "@somonypou it will, all of the previous Langdon novels do", "@somonypou are you taller than sovo now", "@somonypou of Canadian coins? Lol", "@TheRealJYZ Jason you sovo and I should just go out sometime wearing wifebeaters", "@TheRealJYZ what?", "@TheRealJYZ so you'll probably be AFK from LoL but you'll BRB?", "@SoapsOfBubbles working hard I see", "@TheRealJYZ and frolfing", "@somonypou hspa for me", "@somonypou there's a trick you can do where you reset the date and get more lives", "@somonypou dat horseradish", "@somonypou invest in bitcoin", "@somonypou what are some good ones", "@somonypou they need the moisture", "@somonypou do you have a rank", "@somonypou I only know how to say a few things that sovo knows", "@somonypou nah I'm from hong kong", "@somonypou lok pa?", "@somonypou @SoapsOfBubbles", "@SoapsOfBubbles yey Khmer?", "@SoapsOfBubbles forget a t somewhere in that sentence?", "@SoapsOfBubbles try southwest. No bag fees and no assigned seats", "@TheRealJYZ -ard", "@somonypou a lot of people have more than one apple device", "@somonypou a worthy investment", "@TheRealJYZ congrats!", "@TheRealJYZ better not activate my trap cards", "@somonypou video plz", "@somonypou expelliarmus", "If I ever start a blog I'm going to call it \"Without Loss of Generality\"", "@SoapsOfBubbles 7s all day errday", "@TheRealJYZ it's the relaxed killers you really gotta watch out for", "@somonypou what does straightgudda mean", "@somonypou most lithium ion batteries are rated for about 1000 cycles #dothemath", "@ThaRealJayZee only when I'm shirtless", "@SoapsOfBubbles #vegetablesaregoodforyou", "@GetJyzzyWitIt yes, then they undergo feline fission", "@SoapsOfBubbles #ballstingling", "@SoapsOfBubbles #ledecky", "my mom just called my computer's blue LEDs \"romantic\" #wtf", "@somonypou she is, cormoran strike series", "@somonypou I'm exited too when I leave buildings :p", "@SoapsOfBubbles yo speako spanisho #spanglish", "@SoapsOfBubbles el cambodo?", "@somonypou they're clearly repeating themselves", "@SoapsOfBubbles #settlersofcatan", "@somonypou 16000 is the number at which one runs out of things to tweet about", "@somonypou this is truth", "@SoapsOfBubbles what's summer", "@GetJyzzyWitIt and keep calm", "@SoapsOfBubbles didn't that happen once already", "@SoapsOfBubbles gravely grave", "I've got a mouse and he hasn't got a house I don't know why I call him Gerald #bike #pinkfloyd", "testing", "@SoapsOfBubbles @bwittenauerlee best relationship ever", "@GetJyzzyWitIt wtf", "@GetJyzzyWitIt yes. Same argument", "@GetJyzzyWitIt yes by the same argument. You would have to look at the great grandparents, or whatever generation has the granularity", "@GetJyzzyWitIt yes. The child will have two Asian grandparents and two nonasian grandparents", "JEFF DID ANAL!!!", "@GetJyzzyWitIt try warm underwear", "@SoapsOfBubbles its kind of sad when your first follower is due to debugging purposes", "@GetJyzzyWitIt blue cat misses you more", "@GetJyzzyWitIt #zerothworldproblems", "@SoapsOfBubbles @AfricaStitty @awkwardwhale96 maybe @AfricaStitty is no longer capable of his namesake feat", "@GetJyzzyWitIt you know you're famous when friend requests from people you don't know outnumber the ones from people you do", "@GetJyzzyWitIt you have my sympathy", "@GetJyzzyWitIt then I will. Go get em JSON!", "@GetJyzzyWitIt go look at the wall of @SoapsOfBubbles", "@SoapsOfBubbles at least they're open this time", "@SoapsOfBubbles king savijji", "@somonypou @SoapsOfBubbles What makes that different from other bbq", "@SoapsOfBubbles @somonypou what's kbbq", "@SoapsOfBubbles best corruption ever soviglobletoast", "First non-debug/test tweet #yay @SoapsOfBubbles", "Playing The Button Game! | via CS:308 Arcade", "test | via CS308 Arcade", "Tweetin' | via CS308 Arcade", "Playing The Button Game! | via CS:308 Arcade", "@ra_kannan look at me I can still tweet with the arcade | via CS308 Arcade", "testing reauthenticate | via CS308 Arcade", "tweet tweet all day #sidetracked | via CS308 Arcade", "I'm twittering away when I have a Spanish paper to write #priorities | via CS308 Arcade", "@ra_kannan I WANNA POST TO FACEBOOK #pressureson | via CS308 Arcade", "Checking this still works #unittesting | via CS308 Arcade", "twittah #shouldbeworking | via CS308 Arcade", "arcade tweetin all day errday @ra_kannan #obsessed | via CS308 Arcade", "Still up and testing #debugging | via Duke CS308 Arcade", "I should go to bed #sixhoursofsleep | via Duke CS308 Arcade", "hey yo | via CS308 Arcade", "@rwb392 look at me im tweeting with the arcade | via CS308 Arcade", "I'm having way too much fun with this #programmingallnight | via CS308 Arcade", "@ra_kannan IMMA TWEETIN #thisisawesome | via CS308 Arcade", "IMMA TWEETIN | via CS308 Arcade", "fkjsjfslk", "testestsetestestest", "test tweet no reauthentication part 8", "test tweet no reauthentication part 7", "test tweet no reauthentication part 6", "test tweet no reauthentication part 5", "test tweet no reauthentication part 4", "test tweet no reauthentication part 3", "test tweet no reauthentication part 2", "test tweet no reauthentication", "test tweet", "This tweet made via CS308 Arcade", "test"];
+
+var kValue=1;
+var MAX_LENGTH=50;
+
+cleanInput();
+//strip hashtags and mentions
+function cleanInput(){
+    var targets=["@", "#", "|"];
+    for (var i=0;i<input.length;i++){
+        var tweetArray=input[i].split(" ");
+        for (var j=0;j<tweetArray.length;j++){
+            for (var k=0;k<targets.length;k++){
+                if (tweetArray[j].substring(0,1)==targets[k]){
+                    tweetArray[j]="";
+                }
+            }
+            input[i]=tweetArray.join(" ").trim();
+        }
+    }
+}
+console.log(input);
+//find start seeds
+var origSeeds=input.map(function(d){
+    if (d.split(" ").length>kValue){
+        return d.split(" ").slice(0,kValue).join(" ");
+    }
+});
+//remove undefined elements
+startSeeds = [];
+for (var i=0;i<origSeeds.length;i++){
+    if (origSeeds[i]!=undefined){
+        startSeeds.push(origSeeds[i]);
+    }
+}
+console.log(startSeeds);
+//generate markov map
+var map={};
+for (var i=0;i<input.length;i++){
+        var tweetArray=input[i].split(" ");
+        for (var j=0;j<tweetArray.length-kValue;j++){
+                key=tweetArray.slice(j,j+kValue).join(" ");
+                value=tweetArray[j+kValue];
+                if (!(key in map)){
+                    map[key]=[];
+                }
+                map[key].push(value);
+            }
+        }
+console.log(map);
+
+generateTweet();
+
+function generateTweet(){
+//select a random start seed
+var start=startSeeds[Math.floor(Math.random()*startSeeds.length)];
+console.log(start);
+var string=start.split(" ");
+while (map[start]!=undefined && string.length<MAX_LENGTH){
+    var next=map[start][Math.floor(Math.random()*map[start].length)]; //weighted random choice
+string.push(next);
+start=string.slice(string.length-kValue, string.length).join(" ");
+}
+console.log(string);
+console.log(string.join(" "));
+return string.join(" ");
+}
+</script>
+
+<%= form_tag(signout_path, :method => 'delete') do%>
+<button class='btn btn-danger' id='sign_out'>
+           Sign Out
+           </button>
+<%end%>

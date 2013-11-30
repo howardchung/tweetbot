@@ -4,8 +4,16 @@ class HomeController < ApplicationController
 
     def index
     if session['access_token'] && session['access_secret']
-            @timeline=client.user_timeline(:count=>3200, :include_rts=>false).map{|obj|obj.text}
-            @latest_tweets = @timeline
+            prev=client.user_timeline(:include_rts=>false)
+            @latest_tweets=prev.map{|obj|obj.text}
+            prev_id=0
+            last_id=prev.last.id
+            while prev_id !=last_id
+            current=client.user_timeline(:max_id=>last_id,:include_rts=>false)
+            @latest_tweets.concat(current.map{|obj|obj.text})
+            prev_id=last_id
+            last_id=current.last.id
+            end
     else
       render "signin"
     end

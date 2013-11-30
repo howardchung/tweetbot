@@ -4,14 +4,8 @@ class HomeController < ApplicationController
 
     def index
     if session['access_token'] && session['access_secret']
-        @latest_tweets = Rails.cache.read "latest_tweets"
-        if !@latest_tweets
-            puts "API call"
-            @user = client.user(include_entities: true)
-            @timeline=client.user_timeline(@user, :count=>3200, :include_rts=>false).map{|obj|obj.text}
+            @timeline=client.user_timeline(:count=>3200, :include_rts=>false).map{|obj|obj.text}
             @latest_tweets = @timeline
-            Rails.cache.write("latest_tweets", @timeline, :expires_in => 5.minutes)
-        end
     else
       render "signin"
     end

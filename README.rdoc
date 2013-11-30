@@ -1,3 +1,0 @@
-TweetBot
-
-twittermarkov.herokuapp.com

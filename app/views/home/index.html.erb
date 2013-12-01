@@ -14,12 +14,8 @@
 
 <script>
 var input=<%=raw @latest_tweets%>;
-
-var kValue=2;
 var MAX_LENGTH=50;
 
-cleanInput();
-//strip hashtags and mentions
 function cleanInput(){
     var targets=["@", "#", "|"];
     for (var i=0;i<input.length;i++){
@@ -33,13 +29,13 @@ function cleanInput(){
             input[i]=newArray.join(" ").trim();
     }
 }
-
+//strip hashtags and mentions
+cleanInput();
 console.log(input);
-//find start seeds
+
+//find starting words
 var origSeeds=input.map(function(d){
-    if (d.split(" ").length>kValue){
-        return d.split(" ").slice(0,kValue).join(" ");
-    }
+        return d.split(" ").slice(0,1).join(" ");
 });
 //remove undefined elements
 startSeeds = [];
@@ -48,32 +44,42 @@ for (var i=0;i<origSeeds.length;i++){
         startSeeds.push(origSeeds[i]);
     }
 }
-console.log(startSeeds);
-//generate markov map
-var map={};
-for (var i=0;i<input.length;i++){
-        var tweetArray=input[i].split(" ");
-        for (var j=0;j<tweetArray.length-kValue;j++){
-                key=tweetArray.slice(j,j+kValue).join(" ");
-                value=tweetArray[j+kValue];
-                if (!(key in map)){
-                    map[key]=[];
+
+//generate markov
+function generateMarkovModel(kVal){
+    var map={};
+    for (var i=0;i<input.length;i++){
+            var tweetArray=input[i].split(" ");
+            for (var j=0;j<tweetArray.length-kVal;j++){
+                    key=tweetArray.slice(j,j+kVal).join(" ");
+                    value=tweetArray[j+kVal];
+                    if (!(key in map)){
+                        map[key]=[];
+                    }
+                    map[key].push(value);
                 }
-                map[key].push(value);
             }
-        }
-console.log(map);
+    return map;
+}
+var mapArray=[generateMarkovModel(1),generateMarkovModel(2)];
+console.log(mapArray);
 
 function generateTweet(){
-//select a random start seed
-var start=startSeeds[Math.floor(Math.random()*startSeeds.length)];
-var string=start.split(" ");
-while (map[start]!=undefined && string.length<MAX_LENGTH){
-    var next=map[start][Math.floor(Math.random()*map[start].length)]; //weighted random choice
-string.push(next);
-start=string.slice(string.length-kValue, string.length).join(" ");
-}
-return string.join(" ");
+    //select a random start seed
+    var start=startSeeds[Math.floor(Math.random()*startSeeds.length)];
+    var string=start.split(" ");
+    var currMap=mapArray[0]; //first iteration using order-1 model
+
+    while (currMap[start]!=undefined && string.length<MAX_LENGTH){
+        var next=currMap[start][Math.floor(Math.random()*currMap[start].length)]; //weighted random choice
+        string.push(next);
+        //randomly choose between order 1 and 2 for next map
+        var rand=Math.floor(Math.random()*mapArray.length);
+        //console.log(rand);
+        currMap=mapArray[rand];
+        start=string.slice(string.length-(rand+1), string.length).join(" ");
+    }
+    return string.join(" ");
 }
 
 $("#generate").on("click", function(){
